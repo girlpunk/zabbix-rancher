@@ -45,7 +45,7 @@ class ProjectAlert:
 
         for projectAlert in request["data"]:
             response['data'].append({
-                "{#ID}": projectAlert["id"],
+                "{#ClusterID}": projectAlert["id"],
                 "{#Name}": projectAlert["name"]
             })
 
