@@ -16,7 +16,7 @@ class Project:
 
         for project in request["data"]:
             response['data'].append({
-                "{#ID}": project["id"],
+                "{#ClusterID}": project["id"],
                 "{#Name}": project["name"]
             })
 
