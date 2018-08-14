@@ -1,87 +1,62 @@
-"""{
-  "type": "collection",
-  "data": [
-    {
-      "actions": {
-        "activate": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload?action=activate",
-        "deactivate": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload?action=deactivate",
-        "mute": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload?action=mute",
-        "unmute": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload?action=unmute"
-      },
-      "alertState": "active",
-      "annotations": {
-        "lifecycle.cattle.io/create.project-alert-podtarget_c-d8f82": "true"
-      },
-      "baseType": "projectAlert",
-      "created": "2018-08-13T13:08:57Z",
-      "createdTS": 1534165737000,
-      "creatorId": null,
-      "description": "Built-in Alert for Workload",
-      "id": "p-vh55m:projectalert-workload",
-      "initialWaitSeconds": 180,
-      "links": {
-        "remove": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload",
-        "self": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload",
-        "update": "https://192.168.42.52:445/v3/projectAlerts/p-vh55m:projectalert-workload"
-      },
-      "name": "Alert for Workload",
-      "namespaceId": null,
-      "projectId": "c-d8f82:p-vh55m",
-      "repeatIntervalSeconds": 3600,
-      "severity": "critical",
-      "state": "active",
-      "targetWorkload": {
-        "availablePercentage": 50,
-        "selector": {
-          "app": "workload"
-        },
-        "type": "/v3/schemas/targetWorkload"
-      },
-      "transitioning": "no",
-      "transitioningMessage": "",
-      "type": "projectAlert",
-      "uuid": "095a7683-9efa-11e8-82ef-0242ac110002"
-    },
-    {
-      "actions": {
-        "activate": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload?action=activate",
-        "deactivate": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload?action=deactivate",
-        "mute": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload?action=mute",
-        "unmute": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload?action=unmute"
-      },
-      "alertState": "active",
-      "annotations": {
-        "lifecycle.cattle.io/create.project-alert-podtarget_c-d8f82": "true"
-      },
-      "baseType": "projectAlert",
-      "created": "2018-08-07T19:23:19Z",
-      "createdTS": 1533669799000,
-      "creatorId": null,
-      "description": "Built-in Alert for Workload",
-      "id": "project-vrgd9:projectalert-workload",
-      "initialWaitSeconds": 180,
-      "links": {
-        "remove": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload",
-        "self": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload",
-        "update": "https://192.168.42.52:445/v3/projectAlerts/project-vrgd9:projectalert-workload"
-      },
-      "name": "Alert for Workload",
-      "namespaceId": null,
-      "projectId": "c-d8f82:project-vrgd9",
-      "repeatIntervalSeconds": 3600,
-      "severity": "critical",
-      "state": "active",
-      "targetWorkload": {
-        "availablePercentage": 50,
-        "selector": {
-          "app": "workload"
-        },
-        "type": "/v3/schemas/targetWorkload"
-      },
-      "transitioning": "no",
-      "transitioningMessage": "",
-      "type": "projectAlert",
-      "uuid": "576789e6-9a77-11e8-9b04-0242ac110003"
-    }
-  ]
-}"""
+# coding=utf-8
+"""Project-related monitoring"""
+import json
+import sys
+
+import requests
+
+class ProjectAlert:
+    def __init__(self):
+        self.API_URL = sys.argv[1]
+        self.API_USER = sys.argv[2]
+        self.API_PASSWORD = sys.argv[3]
+
+        if sys.argv[4] == "discovery":
+            self.discovery()
+        elif sys.argv[4] == "alertState":
+            print(self._getProjectAlert(sys.argv[5])["alertState"])
+        elif sys.argv[4] == "createdTS":
+            print(self._getProjectAlert(sys.argv[5])["createdTS"])
+        elif sys.argv[4] == "creatorId":
+            print(self._getProjectAlert(sys.argv[5])["creatorId"])
+        elif sys.argv[4] == "description":
+            print(self._getProjectAlert(sys.argv[5])["description"])
+        elif sys.argv[4] == "initialWaitSeconds":
+            print(self._getProjectAlert(sys.argv[5])["initialWaitSeconds"])
+        elif sys.argv[4] == "namespaceId":
+            print(self._getProjectAlert(sys.argv[5])["namespaceId"])
+        elif sys.argv[4] == "projectId":
+            print(self._getProjectAlert(sys.argv[5])["projectId"])
+        elif sys.argv[4] == "repeatIntervalSeconds":
+            print(self._getProjectAlert(sys.argv[5])["repeatIntervalSeconds"])
+        elif sys.argv[4] == "severity":
+            print(self._getProjectAlert(sys.argv[5])["severity"])
+        elif sys.argv[4] == "state":
+            print(self._getProjectAlert(sys.argv[5])["state"])
+        elif sys.argv[4] == "transitioning":
+            print(self._getProjectAlert(sys.argv[5])["transitioning"])
+
+    def discovery(self):
+        raw_request = requests.get(self.API_URL + "projectAlert", auth=(self.API_USER, self.API_PASSWORD), verify=False)
+        raw_request.raise_for_status()
+        request = raw_request.json()
+
+        response = {'data': []}
+
+        for projectAlert in request["data"]:
+            response['data'].append({
+                "{#ID}": projectAlert["id"],
+                "{#Name}": projectAlert["name"]
+            })
+
+        print(json.dumps(response))
+
+    def _getProjectAlert(self, projectAlertId):
+        raw_request = requests.get(
+            self.API_URL + "projectAlert/" + projectAlertId,
+            auth=(self.API_USER, self.API_PASSWORD),
+            verify=False
+        )
+        raw_request.raise_for_status()
+        return raw_request.json()
+

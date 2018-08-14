@@ -1,68 +1,6 @@
 """{
-  "type": "collection",
-  "links": {
-    "self": "https://192.168.42.52:445/v3/nodes"
-  },
-  "createTypes": {
-    "node": "https://192.168.42.52:445/v3/nodes"
-  },
-  "actions": {},
-  "pagination": {
-    "limit": 1000,
-    "total": 1
-  },
-  "sort": {
-    "order": "asc",
-    "reverse": "https://192.168.42.52:445/v3/nodes?order=desc",
-    "links": {
-      "description": "https://192.168.42.52:445/v3/nodes?sort=description",
-      "externalIpAddress": "https://192.168.42.52:445/v3/nodes?sort=externalIpAddress",
-      "hostname": "https://192.168.42.52:445/v3/nodes?sort=hostname",
-      "ipAddress": "https://192.168.42.52:445/v3/nodes?sort=ipAddress",
-      "name": "https://192.168.42.52:445/v3/nodes?sort=name",
-      "nodeName": "https://192.168.42.52:445/v3/nodes?sort=nodeName",
-      "podCidr": "https://192.168.42.52:445/v3/nodes?sort=podCidr",
-      "providerId": "https://192.168.42.52:445/v3/nodes?sort=providerId",
-      "sshUser": "https://192.168.42.52:445/v3/nodes?sort=sshUser",
-      "state": "https://192.168.42.52:445/v3/nodes?sort=state",
-      "transitioning": "https://192.168.42.52:445/v3/nodes?sort=transitioning",
-      "transitioningMessage": "https://192.168.42.52:445/v3/nodes?sort=transitioningMessage",
-      "uuid": "https://192.168.42.52:445/v3/nodes?sort=uuid"
-    }
-  },
-  "filters": {
-    "clusterId": null,
-    "controlPlane": null,
-    "creatorId": null,
-    "description": null,
-    "etcd": null,
-    "externalIpAddress": null,
-    "hostname": null,
-    "id": null,
-    "imported": null,
-    "ipAddress": null,
-    "name": null,
-    "namespaceId": null,
-    "nodeName": null,
-    "nodePoolId": null,
-    "nodeTemplateId": null,
-    "podCidr": null,
-    "providerId": null,
-    "requestedHostname": null,
-    "sshUser": null,
-    "state": null,
-    "transitioning": null,
-    "transitioningMessage": null,
-    "unschedulable": null,
-    "uuid": null,
-    "worker": null
-  },
-  "resourceType": "node",
   "data": [
     {
-      "actions": {
-        "cordon": "https://192.168.42.52:445/v3/nodes/c-d8f82:m-05b6053c41a2?action=cordon"
-      },
       "allocatable": {
         "cpu": "2",
         "ephemeral-storage": "16999863064",
@@ -70,17 +8,6 @@
         "memory": "3948464Ki",
         "pods": "110"
       },
-      "annotations": {
-        "flannel.alpha.coreos.com/backend-data": "{\"VtepMAC\":\"1a:da:53:bb:18:3e\"}",
-        "flannel.alpha.coreos.com/backend-type": "vxlan",
-        "flannel.alpha.coreos.com/kube-subnet-manager": "true",
-        "flannel.alpha.coreos.com/public-ip": "192.168.42.52",
-        "node.alpha.kubernetes.io/ttl": "0",
-        "rke.cattle.io/external-ip": "192.168.42.52",
-        "rke.cattle.io/internal-ip": "192.168.42.52",
-        "volumes.kubernetes.io/controller-managed-attach-detach": "true"
-      },
-      "baseType": "node",
       "capacity": {
         "cpu": "2",
         "ephemeral-storage": "18446032Ki",
@@ -155,13 +82,8 @@
         }
       ],
       "controlPlane": true,
-      "created": "2018-08-07T18:53:50Z",
       "createdTS": 1533668030000,
       "creatorId": null,
-      "customConfig": {
-        "address": "192.168.42.52",
-        "type": "/v3/schemas/customConfig"
-      },
       "dockerInfo": {
         "debug": false,
         "experimentalBuild": false,
@@ -190,22 +112,9 @@
         }
       },
       "ipAddress": "192.168.42.52",
-      "labels": {
-        "beta.kubernetes.io/arch": "amd64",
-        "beta.kubernetes.io/os": "linux",
-        "kubernetes.io/hostname": "docker",
-        "node-role.kubernetes.io/controlplane": "true",
-        "node-role.kubernetes.io/etcd": "true",
-        "node-role.kubernetes.io/worker": "true"
-      },
       "limits": {
         "cpu": "310m",
         "memory": "422Mi"
-      },
-      "links": {
-        "remove": "https://192.168.42.52:445/v3/nodes/c-d8f82:m-05b6053c41a2",
-        "self": "https://192.168.42.52:445/v3/nodes/c-d8f82:m-05b6053c41a2",
-        "update": "https://192.168.42.52:445/v3/nodes/c-d8f82:m-05b6053c41a2"
       },
       "name": "",
       "namespaceId": null,

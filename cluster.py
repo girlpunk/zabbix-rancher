@@ -1,72 +1,40 @@
+import json
+import sys
+
+import requests
+
+
+class Cluster:
+    def __init__(self):
+        self.API_URL = sys.argv[1]
+        self.API_USER = sys.argv[2]
+        self.API_PASSWORD = sys.argv[3]
+
+        if sys.argv[4] == "discovery":
+            self.discovery()
+
+    def discovery(self):
+        raw_request = requests.get(self.API_URL + "cluster", auth=(self.API_USER, self.API_PASSWORD), verify=False)
+        raw_request.raise_for_status()
+        request = raw_request.json()
+
+        response = {'data': []}
+
+        for projectAlert in request["data"]:
+            response['data'].append({
+                "{#ID}": projectAlert["id"],
+                "{#Name}": projectAlert["name"]
+            })
+
+        print(json.dumps(response))
 """{
-  "type": "collection",
-  "links": {
-    "self": "https://192.168.42.52:445/v3/clusters"
-  },
-  "createTypes": {
-    "cluster": "https://192.168.42.52:445/v3/clusters"
-  },
-  "actions": {},
-  "pagination": {
-    "limit": 1000,
-    "total": 1
-  },
-  "sort": {
-    "order": "asc",
-    "reverse": "https://192.168.42.52:445/v3/clusters?order=desc",
-    "links": {
-      "agentImage": "https://192.168.42.52:445/v3/clusters?sort=agentImage",
-      "apiEndpoint": "https://192.168.42.52:445/v3/clusters?sort=apiEndpoint",
-      "appliedPodSecurityPolicyTemplateId": "https://192.168.42.52:445/v3/clusters?sort=appliedPodSecurityPolicyTemplateId",
-      "caCert": "https://192.168.42.52:445/v3/clusters?sort=caCert",
-      "description": "https://192.168.42.52:445/v3/clusters?sort=description",
-      "desiredAgentImage": "https://192.168.42.52:445/v3/clusters?sort=desiredAgentImage",
-      "driver": "https://192.168.42.52:445/v3/clusters?sort=driver",
-      "state": "https://192.168.42.52:445/v3/clusters?sort=state",
-      "transitioning": "https://192.168.42.52:445/v3/clusters?sort=transitioning",
-      "transitioningMessage": "https://192.168.42.52:445/v3/clusters?sort=transitioningMessage",
-      "uuid": "https://192.168.42.52:445/v3/clusters?sort=uuid"
-    }
-  },
-  "filters": {
-    "agentImage": null,
-    "apiEndpoint": null,
-    "appliedPodSecurityPolicyTemplateId": null,
-    "caCert": null,
-    "creatorId": null,
-    "defaultClusterRoleForProjectMembers": null,
-    "defaultPodSecurityPolicyTemplateId": null,
-    "description": null,
-    "desiredAgentImage": null,
-    "driver": null,
-    "id": null,
-    "internal": null,
-    "name": null,
-    "state": null,
-    "transitioning": null,
-    "transitioningMessage": null,
-    "uuid": null
-  },
-  "resourceType": "cluster",
   "data": [
     {
-      "actions": {
-        "exportYaml": "https://192.168.42.52:445/v3/clusters/c-d8f82?action=exportYaml",
-        "generateKubeconfig": "https://192.168.42.52:445/v3/clusters/c-d8f82?action=generateKubeconfig",
-        "importYaml": "https://192.168.42.52:445/v3/clusters/c-d8f82?action=importYaml"
-      },
       "agentImage": "rancher/rancher-agent:v2.0.6",
       "allocatable": {
         "cpu": "2",
         "memory": "3948464Ki",
         "pods": "110"
-      },
-      "annotations": {
-        "lifecycle.cattle.io/create.cluster-agent-controller": "true",
-        "lifecycle.cattle.io/create.cluster-agent-controller-cleanup": "true",
-        "lifecycle.cattle.io/create.cluster-provisioner-controller": "true",
-        "lifecycle.cattle.io/create.cluster-scoped-gc": "true",
-        "lifecycle.cattle.io/create.mgmt-cluster-rbac-remove": "true"
       },
       "apiEndpoint": "https://192.168.42.52:6443",
       "appliedPodSecurityPolicyTemplateId": "",
